@@ -1,0 +1,66 @@
+<div class="card-row">
+  <!-- Partners -->
+  <div class="card-group">
+    <div class="card-title-box small-title">Partners</div>
+    <div class="card">
+      <dx-data-grid
+        [dataSource]="partners"
+        [showBorders]="true"
+        keyExpr="id"
+        [editing]="{
+          mode: 'popup',
+          allowAdding: true,
+          allowUpdating: true,
+          allowDeleting: true
+        }"
+        (onRowInserting)="onAdd($event)"
+        (onRowUpdating)="onEdit($event)"
+        (onRowRemoving)="onDelete($event)"
+      >
+        <!-- Name column -->
+        <dxi-column
+          dataField="name"
+          caption="Partner Name"
+          alignment="center"
+        ></dxi-column>
+
+        <!-- Email column -->
+        <dxi-column
+          dataField="email"
+          caption="Email"
+          alignment="center"
+        ></dxi-column>
+
+        <!-- Popup form -->
+        <dxo-editing
+          mode="popup"
+          [allowAdding]="true"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+        >
+          <dxo-popup
+            title="Partner Details"
+            [showTitle]="true"
+            [width]="500"
+            [height]="300"
+          ></dxo-popup>
+
+          <dxo-form>
+            <dxi-item
+              dataField="name"
+              caption="Partner Name"
+              [colSpan]="2"
+            ></dxi-item>
+            <dxi-item
+              dataField="email"
+              caption="Email"
+              [colSpan]="2"
+            ></dxi-item>
+          </dxo-form>
+
+          <dxo-texts addRow="Add Partner"></dxo-texts>
+        </dxo-editing>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>

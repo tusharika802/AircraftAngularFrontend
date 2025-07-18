@@ -1,0 +1,40 @@
+::ng-deep .dx-overlay-content {
+    background-color: lightgray;
+}
+::ng-deep #view {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+::ng-deep .dx-overlay-wrapper.dx-popup-wrapper.dx-overlay-shader {
+  background: url('https://wallpapers.com/images/hd/4k-plane-in-airport-uhj5vnu4c0t0j89v.jpg') no-repeat center center;
+  background-size: cover;
+  // backdrop-filter: blur(4px);
+}
+
+.login-btn {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: center;
+  margin-top: 0%;
+}
+.profile-info {
+  position: absolute;
+  top: 13px;
+  right: 120px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}

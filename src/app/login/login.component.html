@@ -1,0 +1,31 @@
+<div class="login-form">
+  <dx-text-box
+    [(value)]="username"
+    placeholder="Username"
+    [showClearButton]="true"
+    [width]="'100%'">
+  </dx-text-box>
+
+  <dx-text-box
+    [(value)]="password"
+    placeholder="Password"
+    [mode]="'password'"
+    [showClearButton]="true"
+    [width]="'100%'"
+    style="margin-top: 10px;">
+  </dx-text-box>
+
+  <div *ngIf="errorMessage" class="error" style="color: red; margin-top: 10px;">
+    {{ errorMessage }}
+  </div>
+
+  <dx-button
+    text="Login"
+    type="success"
+    style="margin-top: 15px; width: 100%;"
+    (onClick)="login()">
+  </dx-button>
+</div>
+<div style="text-align: center; margin-top: 15px;">
+  <a (click)="switchToRegister()" style="cursor: pointer; color: blue;">New user? Register here</a>
+</div>

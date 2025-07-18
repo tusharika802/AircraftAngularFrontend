@@ -1,0 +1,30 @@
+<!-- Parts -->
+    <div class="card-group">
+      <div class="card-title-box small-title">PARTS</div>
+      <div class="card">
+  <dx-data-grid
+    [dataSource]="parts"
+    [showBorders]="true"
+    [editing]="{ mode: 'popup', allowAdding: true, allowUpdating: true, allowDeleting: true }"
+    (onRowInserting)="onAdd($event)"
+    (onRowUpdating)="onEdit($event)"
+    (onRowRemoving)="onDelete($event)"
+  >
+    <!-- <dxi-column dataField="id" caption="ID" [allowEditing]="false" alignment="center"></dxi-column> -->
+    <dxi-column dataField="name" caption="Part Name" alignment="center"></dxi-column>
+    <!-- <dxi-column dataField="status" caption="Status" alignment="center"></dxi-column> -->
+<!-- ✅ Dropdown for Status -->
+  <dxi-column
+    dataField="status"
+    caption="Status"
+    alignment="center"
+    [lookup]="{ dataSource: statusOptions, valueExpr: 'value', displayExpr: 'label' }"
+  ></dxi-column>
+    <dxo-editing mode="popup" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+      <dxo-popup title="Part Details" [showTitle]="true" [width]="400" [height]="250"></dxo-popup>
+    </dxo-editing>
+  </dx-data-grid>
+</div>
+
+      </div>
+  

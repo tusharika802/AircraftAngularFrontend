@@ -1,0 +1,51 @@
+<div class="card-group">
+      <div class="card-title-box small-title">Staff</div>
+      <div class="card">
+  <dx-data-grid
+    [dataSource]="staffList"
+    [showBorders]="true"
+    [editing]="{
+      mode: 'popup',
+      allowAdding: true,
+      allowUpdating: true,
+      allowDeleting: true
+    }"
+    (onRowInserting)="onAdd($event)"
+    (onRowUpdating)="onEdit($event)"
+    (onRowRemoving)="onDelete($event)"
+  >
+    <!-- <dxi-column
+      dataField="id"
+      caption="ID"
+      alignment="center"
+      [allowEditing]="false"
+    ></dxi-column> -->
+
+    <dxi-column
+      dataField="name"
+      caption="Staff Name"
+      alignment="center"
+    ></dxi-column>
+
+    <dxi-column
+      dataField="isActive"
+      caption="Staff Active"
+      alignment="center"
+      dataType="boolean"
+    ></dxi-column>
+
+    <dxo-editing
+      mode="popup"
+      [allowAdding]="true"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+    >
+      <dxo-popup title="Staff Details" [showTitle]="true" [width]="400" [height]="250"></dxo-popup>
+      <dxo-texts addRow="Add Staff"></dxo-texts>
+    </dxo-editing>
+  </dx-data-grid>
+</div>
+
+     
+    </div>
+  

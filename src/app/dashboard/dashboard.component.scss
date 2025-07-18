@@ -1,0 +1,204 @@
+.full-card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 10px;
+  height: 120px;
+  box-shadow: 0 2px 8px rgb(194, 190, 190);
+  padding: 20px;
+  width: 102%;
+  margin: -27px;
+  gap: 2000px;
+  justify-content: center;
+  
+}
+
+.card-header {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 10px;
+  gap: 100px;
+    margin-bottom: -12px; 
+    margin-top: -23px;
+    padding: 18px;
+
+}
+
+/* FLEX: All boxes in one row */
+.card-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+  margin-top: -17px;
+
+}
+
+.count-box {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+
+.count-box .title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.count-box .value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.grid-row {
+  display: flex;
+  gap: 2rem; /* spacing between tables */
+  // flex-wrap: wrap; /* wrap on smaller screens */
+}
+
+.grid-block {
+  flex: 1;
+  min-width: 300px;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Theme Colors */
+.accent {
+  background: #3f51b5;
+}
+
+.warning {
+  background: #ff9800;
+}
+
+.info {
+  background: #00bcd4;
+}
+
+.success {
+  background: #4caf50;
+}
+
+.dark {
+  background: #37474f;
+}
+
+/* ✅ Bold column headers inside dx-data-grid */
+::ng-deep .grid-block .dx-datagrid-headers .dx-header-row > td {
+  font-weight: bold !important;
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+}
+
+/* Row for each pair (Contracts + Parts, Partners + Staff) */
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+    gap: 32px; /* ✅ This adds space between Contracts and Parts */
+  margin-bottom: -12px; /* ✅ This adds vertical space before next row */
+}
+
+/* Group: Title + Grid */
+.card-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 400px;
+  margin-left: -30px;
+  padding:2px;
+}
+
+/* Title box */
+.card-title-box {
+  background: #f0f4ff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e2a47;
+  
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Grid card */
+.card {
+  background: #fff;
+  display: flex;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(194, 190, 190);
+    gap: 20px; /* ✅ This adds gap between cards */
+
+}
+.app-dashboard{
+  margin-top: 4%;
+}
+.navbar-card{
+  box-shadow: red;
+  background-color: #4caf50;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end; /* 🔁 Align items to the right */
+  align-items: center;
+  gap: 10px;                 /* Space between login/logout buttons */
+  padding: 10px 20px;
+  // background-color: rgb(143, 143, 225);
+  position: sticky;          /* Optional: stick to top on scroll */
+  top: 0;
+  z-index: 1000;
+  width: 98%;
+  margin-top: -2%;
+}
+
+
+.login-btn {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: center;
+  margin-top: 0%;
+}
+/* Custom background image for DevExtreme popup overlay */
+.dx-overlay-wrapper.dx-popup-wrapper.dx-overlay-shader
+{
+
+ background-image: url('https://images.unsplash.com/photo-1504196606672-aef5c9cefc92'); /* plane image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(3px); /* optional blur effect */
+}
+
+::ng-deep .dx-drawer-content.dx-theme-background-color {
+    padding: 35px 200px 0px 0px !important;
+}

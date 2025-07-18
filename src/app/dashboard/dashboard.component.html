@@ -1,0 +1,87 @@
+
+<div class="full-card-wrapper">
+  <div class="dashboard-card">
+    <div class="card-header">Dashboard Overview</div>
+
+    <div class="card-grid">
+      <div class="count-box accent">
+        <div class="title">Active Contracts</div>
+        <div class="value">{{ contractCount }}</div>
+      </div>
+
+      <div class="count-box warning">
+        <div class="title">Parts In Progress</div>
+        <div class="value">{{ partInProgressCount }}</div>
+      </div>
+
+      <div class="count-box info">
+        <div class="title">Service Centres</div>
+        <div class="value">{{ serviceCentreCount }}</div>
+      </div>
+
+      <div class="count-box success">
+        <div class="title">Partners</div>
+        <div class="value">{{ partnerCount }}</div>
+      </div>
+
+      <div class="count-box dark">
+        <div class="title">Active Staff</div>
+        <div class="value">{{ staffCount }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-container">
+  <!-- Row 1: Contracts & Parts -->
+  <div class="card-row">
+    <!-- Contracts -->
+    <div class="card-group">
+      <div class="card-title-box small-title">Contracts</div>
+      <div class="card">
+        <dx-data-grid [dataSource]="contracts" [showBorders]="true">
+          <dxi-column dataField="id" caption="ID"  alignment="center"></dxi-column>
+          <dxi-column dataField="title" caption="Title"  alignment="center"></dxi-column>
+          <dxi-column dataField="isActive" caption="Active" alignment="center"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <!-- Parts -->
+    <div class="card-group">
+      <div class="card-title-box small-title">Parts</div>
+      <div class="card">
+        <dx-data-grid [dataSource]="parts" [showBorders]="true">
+          <dxi-column dataField="id" caption="ID"  alignment="center"></dxi-column>
+          <dxi-column dataField="name" caption="Name"  alignment="center"></dxi-column>
+          <dxi-column dataField="status" caption="Status" alignment="center"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Partners & Staff -->
+  <div class="card-row">
+    <!-- Partners -->
+    <div class="card-group">
+      <div class="card-title-box small-title">Partners</div>
+      <div class="card">
+        <dx-data-grid [dataSource]="partners" [showBorders]="true">
+          <dxi-column dataField="id" caption="ID"alignment="center"></dxi-column>
+          <dxi-column dataField="name" caption="Name" alignment="center"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <!-- Staff -->
+    <div class="card-group">
+      <div class="card-title-box small-title">Staff</div>
+      <div class="card">
+        <dx-data-grid [dataSource]="staffList" [showBorders]="true">
+          <dxi-column dataField="id" caption="ID" alignment="center"></dxi-column>
+          <dxi-column dataField="name" caption="Name"  alignment="center"></dxi-column>
+          <dxi-column dataField="isActive" caption="Active"  alignment="center"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

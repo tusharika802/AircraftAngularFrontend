@@ -1,0 +1,38 @@
+<!-- Partners -->
+    <div class="card-group">
+      <div class="card-title-box small-title">SERVICE CENTRE</div>
+      <div class="card">
+  <dx-data-grid
+    [dataSource]="serviceCentres"
+    [showBorders]="true"
+    [editing]="{
+      mode: 'popup',
+      allowAdding: true,
+      allowUpdating: true,
+      allowDeleting: true
+    }"
+    (onRowInserting)="onAdd($event)"
+    (onRowUpdating)="onEdit($event)"
+    (onRowRemoving)="onDelete($event)"
+  >
+    <!-- <dxi-column
+      dataField="id"
+      caption="ID"
+      alignment="center"
+      [allowEditing]="false"
+    ></dxi-column> -->
+
+    <dxi-column
+      dataField="location"
+      caption="Service Centre Location"
+      alignment="center"
+    ></dxi-column>
+
+    <dxo-editing mode="popup" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+      <dxo-popup title="Service Centre Details" [showTitle]="true" [width]="400" [height]="200"></dxo-popup>
+      <dxo-texts addRow="Add Service Centre"></dxo-texts>
+    </dxo-editing>
+  </dx-data-grid>
+</div>
+
+    </div>

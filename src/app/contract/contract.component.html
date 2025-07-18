@@ -1,0 +1,73 @@
+<div class="card-container">
+  <div class="card-row">
+    <div class="card-group">
+      <div class="card-title-box small-title">CONTRACTS</div>
+
+      <div class="card">
+        <dx-data-grid
+          [dataSource]="contracts"
+          [showBorders]="true"
+          keyExpr="id"
+          [editing]="{
+            mode: 'popup',
+            allowUpdating: true,
+            allowAdding: true,
+            allowDeleting: true,
+            useIcons: true
+          }"
+          (onRowInserting)="onAdd($event)"
+          (onRowUpdating)="onEdit($event)"
+          (onRowRemoving)="onDelete($event)"
+        >
+          <!-- Columns -->
+          <dxi-column dataField="title" caption="Contract Name" alignment="center"></dxi-column>
+
+          <dxi-column dataField="isActive" caption="Active" dataType="boolean" alignment="center"></dxi-column>
+
+          <dxi-column
+            dataField="partnerIds"
+            caption="Partners"
+            [calculateCellValue]="getPartnerNames"
+          ></dxi-column>
+
+          <!-- Command Buttons -->
+          <dxi-column type="buttons">
+            <dxi-button name="edit"></dxi-button>
+            <dxi-button name="delete"></dxi-button>
+          </dxi-column>
+
+          <!-- Popup and Form -->
+          <dxo-editing mode="popup" [allowAdding]="true" [allowDeleting]="true" [allowUpdating]="true">
+            <dxo-popup
+              title="Contract Details"
+              [showTitle]="true"
+              [width]="600"
+              [height]="400"
+            ></dxo-popup>
+
+            <dxo-form>
+              <dxi-item dataField="title" caption="Contract Name" [colSpan]="2"></dxi-item>
+
+              <dxi-item dataField="isActive" caption="Contract Active" [colSpan]="2"></dxi-item>
+
+              <dxi-item
+                dataField="partnerIds"
+                [editorType]="'dxTagBox'"
+                [editorOptions]="{
+                  dataSource: partners,
+                  displayExpr: 'name',
+                  valueExpr: 'id',
+                  showSelectionControls: true,
+                  applyValueMode: 'useButtons',
+                  searchEnabled: true
+                }"
+                caption="Select Partners"
+                [colSpan]="2"
+              ></dxi-item>
+            </dxo-form>
+          </dxo-editing>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
