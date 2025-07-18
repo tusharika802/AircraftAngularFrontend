@@ -12,7 +12,7 @@ import { Staff } from './staff';
   providedIn: 'root'
 })
 export class DashboardService {
-  private baseUrl = 'https://localhost:7227/api'; // Update if port differs
+  private baseUrl = 'https://localhost:7227/api'; 
 
   constructor(private http: HttpClient) {}
 
@@ -28,11 +28,11 @@ addContract(contract: Contract): Observable<any> {
   }
 
   editContract(id: number, contract: Contract): Observable<any> {
-    return this.http.put(`${this.baseUrl}/Contracts/edit?id=${id}`, contract);
+return this.http.put(`${this.baseUrl}/Contracts/edit/${id}`, contract);
   }
 
   deleteContract(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.baseUrl}/Contracts/${id}`);
+  return this.http.delete<void>(`${this.baseUrl}/Contracts/delete/${id}`);
 }
 
 

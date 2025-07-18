@@ -12,17 +12,25 @@
             mode: 'popup',
             allowUpdating: true,
             allowAdding: true,
-            allowDeleting: true,
-            useIcons: true
+            allowDeleting: true
           }"
           (onRowInserting)="onAdd($event)"
           (onRowUpdating)="onEdit($event)"
           (onRowRemoving)="onDelete($event)"
         >
           <!-- Columns -->
-          <dxi-column dataField="title" caption="Contract Name" alignment="center"></dxi-column>
+          <dxi-column
+            dataField="title"
+            caption="Contract Name"
+            alignment="center"
+          ></dxi-column>
 
-          <dxi-column dataField="isActive" caption="Active" dataType="boolean" alignment="center"></dxi-column>
+          <dxi-column
+            dataField="isActive"
+            caption="Active"
+            dataType="boolean"
+            alignment="center"
+          ></dxi-column>
 
           <dxi-column
             dataField="partnerIds"
@@ -30,14 +38,13 @@
             [calculateCellValue]="getPartnerNames"
           ></dxi-column>
 
-          <!-- Command Buttons -->
-          <dxi-column type="buttons">
-            <dxi-button name="edit"></dxi-button>
-            <dxi-button name="delete"></dxi-button>
-          </dxi-column>
-
-          <!-- Popup and Form -->
-          <dxo-editing mode="popup" [allowAdding]="true" [allowDeleting]="true" [allowUpdating]="true">
+          <!-- Popup & Form -->
+          <dxo-editing
+            mode="popup"
+            [allowAdding]="true"
+            [allowDeleting]="true"
+            [allowUpdating]="true"
+          >
             <dxo-popup
               title="Contract Details"
               [showTitle]="true"
@@ -46,10 +53,17 @@
             ></dxo-popup>
 
             <dxo-form>
-              <dxi-item dataField="title" caption="Contract Name" [colSpan]="2"></dxi-item>
+              <dxi-item
+                dataField="title"
+                caption="Contract Name"
+                [colSpan]="2"
+              ></dxi-item>
 
-              <dxi-item dataField="isActive" caption="Contract Active" [colSpan]="2"></dxi-item>
-
+              <dxi-item
+                dataField="isActive"
+                caption="Contract Active"
+                [colSpan]="2"
+              ></dxi-item>
               <dxi-item
                 dataField="partnerIds"
                 [editorType]="'dxTagBox'"

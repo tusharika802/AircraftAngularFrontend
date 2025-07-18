@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../dashboard.service';
 import { Partner } from '../partner';
 import { Contract } from '../contract';
+import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 
 @Component({
   selector: 'app-contract',
@@ -9,8 +11,11 @@ import { Contract } from '../contract';
   styleUrls: ['./contract.component.scss']
 })
 export class ContractComponent implements OnInit {
+    @ViewChild(DxDataGridComponent, { static: false })
+  dataGrid!: DxDataGridComponent;
   partners: Partner[] = [];
   contracts: any[] = [];
+  selectedItemKeys: string[] = [];
 
   constructor(private dashboardService: DashboardService) {}
 
@@ -25,8 +30,20 @@ export class ContractComponent implements OnInit {
       this.partners = data;
     });
   }
-
+onSelectionChanged({ selectedRowKeys }: DxDataGridTypes.SelectionChangedEvent) {
+    this.selectedItemKeys = selectedRowKeys;
+  }
   // Load all contracts and convert partnerIds string to number[]
+  // loadContracts(): void {
+  //   this.dashboardService.getAllContracts().subscribe((data: any[]) => {
+  //     this.contracts = data.map(c => ({
+  //       ...c,
+  //       partnerIds: c.partnerIds
+  //         ? c.partnerIds.split(',').map((id: string) => +id)
+  //         : []
+  //     }));
+  //   });
+  // }
   loadContracts(): void {
     this.dashboardService.getAllContracts().subscribe((data: any[]) => {
       this.contracts = data.map(c => ({
