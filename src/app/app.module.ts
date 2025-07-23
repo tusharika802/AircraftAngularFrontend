@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DevExtremeModule, DxBoxModule, DxButtonModule, DxChartModule, DxDrawerModule, DxDropDownBoxModule, DxFormModule, DxListModule, DxMapModule, DxPopupModule, DxSelectBoxModule, DxTagBoxModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule, DxValidatorModule } from 'devextreme-angular';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
+import { DxDataGridModule, DxoDataGridEditingModule } from 'devextreme-angular/ui/data-grid';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ContractComponent } from './contract/contract.component';
 import { PartsComponent } from './parts/parts.component';
@@ -17,6 +17,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DxoEditingComponent, DxoLookupComponent } from 'devextreme-angular/ui/nested';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,10 @@ import { CommonModule } from '@angular/common';
       DxValidatorModule,
       DxChartModule,
       DxMapModule,
-      CommonModule
+      CommonModule,
+      DxoLookupComponent,
+      DxoEditingComponent,
+      DxoDataGridEditingModule
   ],
   providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

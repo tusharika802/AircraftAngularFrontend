@@ -12,12 +12,10 @@ export class LoginComponent {
   errorMessage: string = '';
 
   @Output() loginSuccess = new EventEmitter<void>();
-  @Output() openRegister = new EventEmitter<void>(); // 🔁 To notify app.component to open register modal
-switchToRegister(): void {
+  @Output() openRegister = new EventEmitter<void>(); 
+  switchToRegister(): void {
   this.openRegister.emit();
 }
-
-
   constructor(private http: HttpClient) {}
 
   login(): void {
@@ -28,11 +26,11 @@ switchToRegister(): void {
 
   this.http.post<any>('https://localhost:7227/api/Account/login', payload).subscribe({
     next: (res) => {
-            console.log('Login response:', res); // ✅ Add this line to confirm response
+            console.log('Login response:', res); 
 
       localStorage.setItem('token', res.token);
       localStorage.setItem('username', res.username);
-      localStorage.setItem('profileImage', res.profileImage || ''); // ✅ Save the image URL
+      localStorage.setItem('profileImage', res.profileImage || ''); 
       this.loginSuccess.emit();
     },
     error: () => {

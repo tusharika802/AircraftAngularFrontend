@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   }
 onRegistrationCompleted(): void {
   this.showRegisterPopup = false;
-  this.showLoginPopup = true; // ✅ Show login modal after registration
+  this.showLoginPopup = true; 
 }
 
   openRegisterFromLogin(): void {
@@ -60,7 +60,7 @@ onRegistrationCompleted(): void {
 
   closeRegister(): void {
   this.showRegisterPopup = false;
-  this.showLoginPopup = true; // 👈 Show login popup after closing register
+  this.showLoginPopup = true; 
 }
 
 

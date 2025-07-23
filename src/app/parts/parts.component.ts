@@ -31,6 +31,7 @@ export class PartsComponent implements OnInit{
   }
 
   onEdit(e: any) {
+    debugger;
     const updated: Part = { ...e.oldData, ...e.newData };
     this.service.editPart(updated.id, updated).subscribe(() => {
       this.loadParts();

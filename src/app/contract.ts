@@ -2,6 +2,6 @@ export interface Contract {
   id?: number;
   title: string;
   isActive: boolean;
-  partnerIds: number[]; 
+partnerIds: number[]
 partnerNames?: string; 
 }

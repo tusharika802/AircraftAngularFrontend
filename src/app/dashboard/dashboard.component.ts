@@ -33,10 +33,10 @@ constructor(private service: DashboardService,private router: Router ) {}
   
 
   ngOnInit(): void {
-    this.isLoggedIn = !!localStorage.getItem('token');  // ✅ Check if token exists
+    this.isLoggedIn = !!localStorage.getItem('token');  // Check if token exists
 
     if (this.isLoggedIn) {
-      this.loadDashboardData();                         // ✅ Load data only when logged in
+      this.loadDashboardData();                         //  Load data only when logged in
     }
   }
 

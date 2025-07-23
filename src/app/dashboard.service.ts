@@ -23,7 +23,7 @@ export class DashboardService {
   getActiveContractsCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/Contracts/count`);
   }
-addContract(contract: Contract): Observable<any> {
+  addContract(contract: Contract): Observable<any> {
     return this.http.post(`${this.baseUrl}/Contracts/add`, contract);
   }
 
@@ -31,10 +31,9 @@ addContract(contract: Contract): Observable<any> {
 return this.http.put(`${this.baseUrl}/Contracts/edit/${id}`, contract);
   }
 
-  deleteContract(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.baseUrl}/Contracts/delete/${id}`);
-}
-
+  deleteContract(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Contracts/delete?id=${id}`);
+  }
 
   // Parts
   getAllParts(): Observable<Part[]> {
@@ -83,13 +82,13 @@ deleteServiceCentre(id: number): Observable<any> {
   }
   addPartner(partner: Partner): Observable<any> {
   return this.http.post(`${this.baseUrl}/partner/add`, partner);
-}
+  }
 
-editPartner(id: number, partner: Partner): Observable<any> {
+  editPartner(id: number, partner: Partner): Observable<any> {
   return this.http.put(`${this.baseUrl}/partner/edit?id=${id}`, partner);
 }
 
-deletePartner(id: number): Observable<any> {
+  deletePartner(id: number): Observable<any> {
   return this.http.delete(`${this.baseUrl}/partner/delete?id=${id}`);
 }
 
@@ -112,4 +111,5 @@ deletePartner(id: number): Observable<any> {
 deleteStaff(id: number): Observable<any> {
   return this.http.delete(`${this.baseUrl}/staff/delete?id=${id}`);
 }
+
 }

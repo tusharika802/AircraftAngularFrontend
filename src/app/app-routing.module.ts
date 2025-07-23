@@ -17,11 +17,6 @@ const routes: Routes = [
   { path: 'staff', component: StaffComponent },
   { path: 'login', component: LoginComponent },
 
-  // ✅ Default redirect to dashboard
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
-  // ✅ Wildcard route to catch unknown paths
-  { path: '**', redirectTo: 'dashboard' }
 ];
 
 

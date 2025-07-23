@@ -4,6 +4,7 @@ import { Partner } from '../partner';
 import { Contract } from '../contract';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-contract',
@@ -16,6 +17,8 @@ export class ContractComponent implements OnInit {
   partners: Partner[] = [];
   contracts: any[] = [];
   selectedItemKeys: string[] = [];
+  startEditAction = 'click';
+  selectTextOnEditStart = true;
 
   constructor(private dashboardService: DashboardService) {}
 
@@ -30,10 +33,11 @@ export class ContractComponent implements OnInit {
       this.partners = data;
     });
   }
-onSelectionChanged({ selectedRowKeys }: DxDataGridTypes.SelectionChangedEvent) {
+
+  onSelectionChanged({ selectedRowKeys }: DxDataGridTypes.SelectionChangedEvent) {
     this.selectedItemKeys = selectedRowKeys;
   }
-  // Load all contracts and convert partnerIds string to number[]
+
   // loadContracts(): void {
   //   this.dashboardService.getAllContracts().subscribe((data: any[]) => {
   //     this.contracts = data.map(c => ({
@@ -44,90 +48,98 @@ onSelectionChanged({ selectedRowKeys }: DxDataGridTypes.SelectionChangedEvent) {
   //     }));
   //   });
   // }
-  loadContracts(): void {
-    this.dashboardService.getAllContracts().subscribe((data: any[]) => {
-      this.contracts = data.map(c => ({
-        ...c,
-        partnerIds: c.partnerIds
-          ? c.partnerIds.split(',').map((id: string) => +id)
-          : []
-      }));
-    });
-  }
+loadContracts(): void {
+  this.dashboardService.getAllContracts().subscribe((data: any[]) => {
+    this.contracts = data.map(c => ({
+      ...c,
+      partnerIds: c.partnerIds ? +c.partnerIds : null
+    }));
+  });
+}
 
-  // Get partner names from IDs (for display in grid)
-  getPartnerNames = (rowData: any): string => {
-    const ids: number[] = rowData.partnerIds || [];
-    return this.partners
-      .filter(p => ids.includes(p.id))
-      .map(p => p.name)
-      .join(', ');
+ getPartnerNames = (rowData: any): string => {
+  const id = +rowData.partnerIds;
+  return this.partners.find(p => p.id === id)?.name || '';
+};
+
+
+  onAdd(e: any): void {
+  const selectedPartnerId: number = e.data.partnerIds;
+  const newContract: any = {
+    title: e.data.title,
+    isActive: e.data.isActive ?? false,
+    partnerIds: selectedPartnerId?.toString() || ''
   };
 
-  // Add new contract
-  onAdd(e: any): void {
-    const selectedPartnerIds: number[] = e.data.partnerIds || [];
-    const newContract: any = {
-      title: e.data.title,
-      isActive: e.data.isActive ?? false,
-      partnerIds:
-        selectedPartnerIds.length > 0
-          ? selectedPartnerIds.join(',')
-          : ''
-    };
+  this.dashboardService.addContract(newContract).subscribe({
+    next: () => {
+      this.loadContracts();
+      e.component.cancelEditData();
+    },
+    error: (err) => {
+      console.error('Error adding contract:', err);
+      alert('Failed to add contract: ' + (err?.error?.message || err.message || 'Unknown error'));
+    }
+  });
+}
 
-    this.dashboardService.addContract(newContract).subscribe({
+onEdit(e: any): void {
+  const selectedPartnerId = e.newData.partnerIds ?? e.oldData.partnerIds;
+  const updatedContract: any = {
+    title: e.newData.title ?? e.oldData.title,
+    isActive: e.newData.isActive ?? e.oldData.isActive ?? false,
+    partnerIds: selectedPartnerId?.toString() || ''
+  };
+
+  const id = e.key;
+
+  this.dashboardService.editContract(id, updatedContract).subscribe({
+    next: () => {
+      this.loadContracts();
+      e.component.cancelEditData();
+    },
+    error: (err) => {
+      console.error('Error editing contract:', err);
+      alert('Failed to update contract: ' + (err?.error?.message || err.message || 'Unknown error'));
+    }
+  });
+}
+
+
+
+onDelete(e: any): void {
+  const id = e.data.id;
+  console.log('Delete called:', e);
+  debugger;
+
+  this.dashboardService.deleteContract(id)
+    .pipe(
+      finalize(() => {
+        this.loadContracts(); 
+      })
+    )
+    .subscribe({
       next: () => {
-        this.loadContracts();
-        e.component.cancelEditData(); // close popup
-      },
-      error: (err) => {
-        console.error('Error adding contract:', err);
-        alert('Failed to add contract: ' + (err?.error?.message || err.message || 'Unknown error'));
-      }
-    });
-  }
-
-  // Edit existing contract
-  onEdit(e: any): void {
-    const selectedPartnerIds =
-      e.newData.partnerIds ?? e.oldData.partnerIds ?? [];
-
-    const updatedContract: any = {
-      title: e.newData.title ?? e.oldData.title,
-      isActive: e.newData.isActive ?? e.oldData.isActive ?? false,
-      partnerIds:
-        selectedPartnerIds.length > 0
-          ? selectedPartnerIds.join(',')
-          : ''
-    };
-
-    const id = e.key;
-
-    this.dashboardService.editContract(id, updatedContract).subscribe({
-      next: () => {
-        this.loadContracts();
-        e.component.cancelEditData(); // close popup
-      },
-      error: (err) => {
-        console.error('Error editing contract:', err);
-        alert('Failed to update contract: ' + (err?.error?.message || err.message || 'Unknown error'));
-      }
-    });
-  }
-
-  // Delete contract
-  onDelete(e: any): void {
-    const id = e.data.id;
-
-    this.dashboardService.deleteContract(id).subscribe({
-      next: () => {
-        this.loadContracts();
       },
       error: (err) => {
         console.error('Error deleting contract:', err);
         alert('Failed to delete contract: ' + (err?.error?.message || err.message || 'Unknown error'));
       }
     });
-  }
 }
+}
+
+//   onDelete(e: any): void {
+//     const id = e.data.id;
+//     debugger;
+//     this.dashboardService.deleteContract(id).subscribe({
+//       next: () => {
+//         this.loadContracts();
+//       },
+//       error: (err) => {
+//         console.error('Error deleting contract:', err);
+//         alert('Failed to delete contract: ' + (err?.error?.message || err.message || 'Unknown error'));
+//       }
+//     });
+//   }
+// }

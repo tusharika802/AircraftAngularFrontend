@@ -7,6 +7,7 @@ import { DashboardService } from '../dashboard.service';
   templateUrl: './staff.component.html',
   styleUrl: './staff.component.scss'
 })
+
 export class StaffComponent implements OnInit{
      staffList: Staff[] = [];
 
