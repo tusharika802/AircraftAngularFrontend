@@ -35,24 +35,62 @@
   <!-- Row 1: Contracts & Parts -->
   <div class="card-row">
     <!-- Contracts -->
-    <div class="card-group">
-      <div class="card-title-box small-title">Contracts</div>
-      <div class="card">
-        <dx-data-grid [dataSource]="contracts" [showBorders]="true">
-          <dxi-column dataField="id" caption="ID"  alignment="center"></dxi-column>
-          <dxi-column dataField="title" caption="Title"  alignment="center"></dxi-column>
-          <dxi-column dataField="isActive" caption="Active" alignment="center"></dxi-column>
-          <dxi-column dataField="partnerIds" caption="Partners"></dxi-column>
-        </dx-data-grid>
-      </div>
-    </div>
+    <!-- Contracts Card -->
+<div class="card-group">
+  <div class="card-title-box small-title">Contracts</div>
+  <div class="card">
+    <dx-data-grid
+      [dataSource]="contracts"
+      [showBorders]="true"
+      [editing]="{
+        mode: 'cell',
+        allowUpdating: true,
+      
+      }"
+      (onRowUpdating)="onContractEdit($event)"
+
+    >
+      <!-- <dxi-column
+        dataField="id"
+        caption="ID"
+        [allowEditing]="false"
+        alignment="center"
+      ></dxi-column> -->
+
+      <dxi-column
+        dataField="title"
+        caption="Title"
+        alignment="center"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="isActive"
+        caption="Active"
+        dataType="boolean"
+        alignment="center"
+      ></dxi-column>
+
+      <dxi-column
+  dataField="partnerIds"
+  caption="Partners"
+>
+  <dxo-lookup
+    [dataSource]="partners"
+    displayExpr="name"
+    valueExpr="id"
+  ></dxo-lookup>
+</dxi-column>
+    </dx-data-grid>
+  </div>
+</div>
+
 
     <!-- Parts -->
     <div class="card-group">
       <div class="card-title-box small-title">Parts</div>
       <div class="card">
         <dx-data-grid [dataSource]="parts" [showBorders]="true">
-          <dxi-column dataField="id" caption="ID"  alignment="center"></dxi-column>
+          <!-- <dxi-column dataField="id" caption="ID"  alignment="center"></dxi-column> -->
           <dxi-column dataField="name" caption="Name"  alignment="center"></dxi-column>
           <dxi-column dataField="status" caption="Status" alignment="center"></dxi-column>
         </dx-data-grid>
@@ -67,7 +105,7 @@
       <div class="card-title-box small-title">Partners</div>
       <div class="card">
         <dx-data-grid [dataSource]="partners" [showBorders]="true">
-          <dxi-column dataField="id" caption="ID"alignment="center"></dxi-column>
+          <!-- <dxi-column dataField="id" caption="ID"alignment="center"></dxi-column> -->
           <dxi-column dataField="name" caption="Name" alignment="center"></dxi-column>
         </dx-data-grid>
       </div>
@@ -78,7 +116,7 @@
       <div class="card-title-box small-title">Staff</div>
       <div class="card">
         <dx-data-grid [dataSource]="staffList" [showBorders]="true">
-          <dxi-column dataField="id" caption="ID" alignment="center"></dxi-column>
+          <!-- <dxi-column dataField="id" caption="ID" alignment="center"></dxi-column> -->
           <dxi-column dataField="name" caption="Name"  alignment="center"></dxi-column>
           <dxi-column dataField="isActive" caption="Active"  alignment="center"></dxi-column>
         </dx-data-grid>

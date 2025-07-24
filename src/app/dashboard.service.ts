@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Contract } from './contract';
 import { Part } from './part';
 import { ServiceCentre } from './servicecentre';
@@ -17,23 +17,70 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   // Contracts
-  getAllContracts(): Observable<Contract[]> {
-    return this.http.get<Contract[]>(`${this.baseUrl}/contracts`);
-  }
+//   getAllContracts(): Observable<Contract[]> {
+//     return this.http.get<Contract[]>(`${this.baseUrl}/contracts`);
+//   }
+//   getActiveContractsCount(): Observable<number> {
+//     return this.http.get<number>(`${this.baseUrl}/Contracts/count`);
+//   }
+//   addContract(contract: Contract): Observable<any> {
+//     return this.http.post(`${this.baseUrl}/Contracts/add`, contract);
+//   }
+
+//   editContract(id: number, contract: Contract): Observable<any> {
+// return this.http.put(`${this.baseUrl}/Contracts/edit/${id}`, contract);
+//   }
+
+//   deleteContract(id: number): Observable<any> {
+//   return this.http.delete(`${this.baseUrl}/Contracts/delete/${id}`);
+// }
+
+// ✅ BehaviorSubject for contract updates
+private contractsSubject = new BehaviorSubject<Contract[]>([]);
+public contracts$ = this.contractsSubject.asObservable();
+
+
+  setContracts(data: Contract[]): void {
+  this.contractsSubject.next(data);
+}
+
+getContractsSnapshot(): Contract[] {
+  return this.contractsSubject.getValue();
+}
+
+
+  // ✅ Modified getAllContracts to push into BehaviorSubject
+  getAllContracts(): void {
+  this.http.get<Contract[]>(`${this.baseUrl}/contracts`)
+    .subscribe({
+      next: (data) => {
+        this.setContracts(data); // ✅ Push into BehaviorSubject
+      },
+      error: (err) => {
+        console.error('Error fetching contracts:', err);
+      }
+    });
+}
+
+
+  // ✅ Already fine
   getActiveContractsCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/Contracts/count`);
   }
+
   addContract(contract: Contract): Observable<any> {
     return this.http.post(`${this.baseUrl}/Contracts/add`, contract);
   }
 
   editContract(id: number, contract: Contract): Observable<any> {
-return this.http.put(`${this.baseUrl}/Contracts/edit/${id}`, contract);
+    return this.http.put(`${this.baseUrl}/Contracts/edit/${id}`, contract);
   }
 
   deleteContract(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/Contracts/delete?id=${id}`);
+    return this.http.delete(`${this.baseUrl}/Contracts/delete/${id}`);
   }
+
+  // ... (rest of your unchanged part/partner/staff/service centre methods)
 
   // Parts
   getAllParts(): Observable<Part[]> {

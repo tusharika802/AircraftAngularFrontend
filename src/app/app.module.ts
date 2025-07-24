@@ -17,7 +17,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DxoEditingComponent, DxoLookupComponent } from 'devextreme-angular/ui/nested';
+import { DxoEditingComponent, DxoEditingModule, DxoLookupComponent } from 'devextreme-angular/ui/nested';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,8 @@ import { DxoEditingComponent, DxoLookupComponent } from 'devextreme-angular/ui/n
       CommonModule,
       DxoLookupComponent,
       DxoEditingComponent,
-      DxoDataGridEditingModule
+      DxoDataGridEditingModule,
+      DxoEditingModule
   ],
   providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

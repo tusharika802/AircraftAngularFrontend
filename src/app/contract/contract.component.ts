@@ -38,18 +38,17 @@ export class ContractComponent implements OnInit {
     this.selectedItemKeys = selectedRowKeys;
   }
 
-  // loadContracts(): void {
-  //   this.dashboardService.getAllContracts().subscribe((data: any[]) => {
-  //     this.contracts = data.map(c => ({
-  //       ...c,
-  //       partnerIds: c.partnerIds
-  //         ? c.partnerIds.split(',').map((id: string) => +id)
-  //         : []
-  //     }));
-  //   });
-  // }
+// loadContracts(): void {
+//   this.dashboardService.getAllContracts().subscribe((data: any[]) => {
+//     this.contracts = data.map(c => ({
+//       ...c,
+//       partnerIds: c.partnerIds ? +c.partnerIds : null
+//     }));
+//   });
+// }
+
 loadContracts(): void {
-  this.dashboardService.getAllContracts().subscribe((data: any[]) => {
+  this.dashboardService.contracts$.subscribe((data: any[]) => {
     this.contracts = data.map(c => ({
       ...c,
       partnerIds: c.partnerIds ? +c.partnerIds : null
@@ -83,6 +82,30 @@ loadContracts(): void {
   });
 }
 
+// onEdit(e: any): void {
+//   const selectedPartnerId = e.newData.partnerIds ?? e.oldData.partnerIds;
+//   const updatedContract: any = {
+//     title: e.newData.title ?? e.oldData.title,
+//     isActive: e.newData.isActive ?? e.oldData.isActive ?? false,
+//     partnerIds: selectedPartnerId?.toString() || ''
+//   };
+
+//   const id = e.key;
+
+//   this.dashboardService.editContract(id, updatedContract).subscribe({
+//     next: () => {
+//       this.loadContracts();
+//       e.component.cancelEditData();
+//     },
+//     error: (err) => {
+//       console.error('Error editing contract:', err);
+//       alert('Failed to update contract: ' + (err?.error?.message || err.message || 'Unknown error'));
+//     }
+//   });
+// }
+
+
+
 onEdit(e: any): void {
   const selectedPartnerId = e.newData.partnerIds ?? e.oldData.partnerIds;
   const updatedContract: any = {
@@ -92,19 +115,22 @@ onEdit(e: any): void {
   };
 
   const id = e.key;
-
-  this.dashboardService.editContract(id, updatedContract).subscribe({
-    next: () => {
-      this.loadContracts();
-      e.component.cancelEditData();
+this.dashboardService.editContract(id, updatedContract).subscribe({
+  next: () => {
+    const current = this.dashboardService.getContractsSnapshot();
+    const updated = current.map(c => c.id === id ? { ...c, ...updatedContract } : c);
+    this.dashboardService.setContracts(updated); // ✅ Push updated list
+     e.component.cancelEditData();
     },
     error: (err) => {
       console.error('Error editing contract:', err);
       alert('Failed to update contract: ' + (err?.error?.message || err.message || 'Unknown error'));
-    }
-  });
+  }
+});
 }
 
+ 
+  
 
 
 onDelete(e: any): void {
@@ -128,18 +154,3 @@ onDelete(e: any): void {
     });
 }
 }
-
-//   onDelete(e: any): void {
-//     const id = e.data.id;
-//     debugger;
-//     this.dashboardService.deleteContract(id).subscribe({
-//       next: () => {
-//         this.loadContracts();
-//       },
-//       error: (err) => {
-//         console.error('Error deleting contract:', err);
-//         alert('Failed to delete contract: ' + (err?.error?.message || err.message || 'Unknown error'));
-//       }
-//     });
-//   }
-// }

@@ -62,25 +62,7 @@
                 caption="Contract Active"
                 [colSpan]="2"
               ></dxi-item>
-              <!-- <dxi-item
-  dataField="partnerIds"
-  [editorType]="'dxTagBox'"
-  [editorOptions]="{
-    items:this.partners,
-    showSelectionControls: true,
-    dataSource: partners,
-    displayExpr: 'name',
-    valueExpr: 'id',
-    searchEnabled: true,
-    applyValueMode: 'useButtons',
-    multiline: true,
-  placeholder: 'Select partners...',
-    hideSelectedItems: false,
-    showClearButton: true
-  }"
-  caption="Select Partner"
-  [colSpan]="2"
-></dxi-item> -->
+             
 <dxi-item
   dataField="partnerIds"
   [editorType]="'dxSelectBox'"
@@ -103,42 +85,3 @@
     </div>
   </div>
 </div>
-<!-- 
-<div id="data-grid-demo">
-  <dx-data-grid
-    id="gridContainer"
-    [dataSource]="contracts"
-    [showBorders]="true"
-    (onSelectionChanged)="onSelectionChanged($event)"
-  >
-    <dxo-paging [enabled]="false"></dxo-paging>
-    <dxo-editing
-      mode="cell"
-      [allowUpdating]="true"
-      [allowAdding]="true"
-      [allowDeleting]="true"
-    >
-    </dxo-editing>
-    <dxo-selection mode="multiple"></dxo-selection>
-
-    <dxi-column dataField="title" caption="Title" [width]="55"></dxi-column>
-    <dxi-column dataField="isActive"></dxi-column>
-    <dxi-column dataField="partnerIds" caption="Partner" [width]="125">
-      <dxo-lookup [dataSource]="partners" displayExpr="name" valueExpr="id">
-      </dxo-lookup>
-    </dxi-column>
-
-    <dxo-toolbar>
-      <dxi-item name="addRowButton" showText="always"> </dxi-item>
-      <dxi-item location="after">
-        <dx-button
-          (onClick)="onDelete($event)"
-          [disabled]="!selectedItemKeys.length"
-          icon="trash"
-          text="Delete Selected Records"
-        >
-        </dx-button>
-      </dxi-item>
-    </dxo-toolbar>
-  </dx-data-grid>
-</div> -->
