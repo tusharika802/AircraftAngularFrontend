@@ -45,9 +45,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getActiveStaffCount().subscribe(count => this.staffCount = count);
   }
 
-  // loadContracts(): void {
-  //   this.dashboardService.getAllContracts().subscribe(data => this.contracts = data);
-  // }
 
   loadContracts(): void {
   this.dashboardService.contracts$.subscribe({
@@ -60,7 +57,7 @@ export class DashboardComponent implements OnInit {
     }
   });
 
-  this.dashboardService.getAllContracts(); // ✅ Trigger push once
+  this.dashboardService.getAllContracts(); 
 }
 
 
@@ -93,7 +90,6 @@ onContractEdit(e: any): void {
     next: () => {
       console.log('Contract updated successfully');
 
-      // ✅ update local BehaviorSubject cache
       const currentContracts = this.dashboardService.getContractsSnapshot();
       const updatedList = currentContracts.map(c =>
         c.id === id ? { ...c, ...updatedData } : c
@@ -106,21 +102,6 @@ onContractEdit(e: any): void {
   });
 }
 }
-//   onContractEdit(e: any): void {
-//     const updatedData = { ...e.oldData, ...e.newData };
-//     const id = updatedData.id;
-
-//     this.dashboardService.editContract(id, updatedData).subscribe({
-//       next: () => {
-//         console.log('Contract updated successfully');
-//         this.loadContracts(); // Refresh data
-//       },
-//       error: (err) => {
-//         console.error('Error updating contract:', err);
-//       }
-//     });
-//   }
-// }
 
 //   onContractDelete(e: any): void {
 //     const id = e.data.id;

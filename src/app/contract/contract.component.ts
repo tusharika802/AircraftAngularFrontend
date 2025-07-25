@@ -129,14 +129,9 @@ this.dashboardService.editContract(id, updatedContract).subscribe({
 });
 }
 
- 
-  
-
-
 onDelete(e: any): void {
   const id = e.data.id;
   console.log('Delete called:', e);
-  debugger;
 
   this.dashboardService.deleteContract(id)
     .pipe(
